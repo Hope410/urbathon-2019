@@ -5,7 +5,8 @@ module.exports = function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     boot: [
-      'axios'
+      'axios',
+      'speech'
     ],
 
     css: [
@@ -37,7 +38,12 @@ module.exports = function (ctx) {
         'QList',
         'QItem',
         'QItemSection',
-        'QItemLabel'
+        'QItemLabel',
+        'QInput',
+        'QCard',
+        'QCardSection',
+        'QCardActions',
+        'QSeparator'
       ],
 
       directives: [
@@ -69,7 +75,8 @@ module.exports = function (ctx) {
     devServer: {
       // https: true,
       // port: 8080,
-      open: true // opens browser window automatically
+      // host: '192.168.42.52',
+      open: false // opens browser window automatically
     },
 
     // animations: 'all', // --- includes all animations

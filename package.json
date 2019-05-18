@@ -12,6 +12,12 @@
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.0",
+    "express-form-data": "^2.0.8",
+    "fetch": "^1.1.0",
+    "get-user-media-promise": "^1.1.4",
+    "leaflet-routing-machine": "^3.2.12",
+    "microphone-stream": "^5.0.1",
+    "node-fetch": "^2.6.0",
     "quasar": "^1.0.0-beta.0"
   },
   "devDependencies": {
