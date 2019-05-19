@@ -79,6 +79,7 @@ export default {
             this.qAddr = null;
             this.makePathQ = false;
             await this.play('Отменено');
+            this.stopListening();
           }
         },
         {
