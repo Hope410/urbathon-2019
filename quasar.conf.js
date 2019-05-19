@@ -45,7 +45,8 @@ module.exports = function (ctx) {
         'QCardSection',
         'QCardActions',
         'QSeparator',
-        'QExpansionItem'
+        'QExpansionItem',
+        'QChatMessage'
       ],
 
       directives: [
@@ -79,7 +80,16 @@ module.exports = function (ctx) {
       // https: true,
       // port: 8080,
       // host: '192.168.42.52',
-      open: false // opens browser window automatically
+      open: false, // opens browser window automatically
+      /*proxy: {
+        // proxy all requests starting with /api to jsonplaceholder
+        '/api': {
+          target: 'https://spatialdata.work/',
+          pathRewrite: {
+            //'^/api': ''
+          }
+        }
+      }*/
     },
 
     // animations: 'all', // --- includes all animations

@@ -108,7 +108,7 @@ export default {
       pointTo = 'Россия, Республика Татарстан, город Казань, ' + pointTo;
 
       const res = await this.$axios.get(
-        `/api/geo?start=${pointFrom}&finish=${pointTo}`);
+        `https://spatialdata.work/api/geo?start=${pointFrom}&finish=${pointTo}`);
 
       let coordinates = [];
 

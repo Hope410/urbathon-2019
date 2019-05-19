@@ -52,14 +52,14 @@ export default {
       this.$router.push(`/${!sighted ? 'un' : ''}sighted`)
 
       if(!sighted){
-        this.play('Добро пожаловать в приложение! Куда Вы хотите направиться?');
+        this.play('Добро пожаловать в приложение! Куда Вы хотите направиться? Перед ответом кликните по экрану.');
       }
     },
 
     play(text){
       return new Promise((resolve, reject) => {
         let sound = new Howl({
-          src: `http://localhost:3000/synthesize.ogg?text=${encodeURI(text)}`,
+          src: `https://spatialdata.work/api/synthesize.ogg?text=${encodeURI(text)}`,
           volume: 0.5,
           onend: resolve
         });
