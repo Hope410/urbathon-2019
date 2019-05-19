@@ -151,10 +151,8 @@ export default {
       this.stopped = true;
       try{
         if(!this.listening){
-          this.listening = true;
           const rec = await this.startListening();
         }else{
-          this.listening = false;
           this.stopListening();
         }
       }catch(e){
@@ -182,6 +180,7 @@ export default {
 
     async startListening() {
       try{
+        this.listening = true;
         this.chunks = [];
 
         const stream = await getUserMedia({ video: false, audio: true });
@@ -204,6 +203,7 @@ export default {
     },
 
     async stopListening(){
+      this.listening = false;
       this.mediaRecorder.stop();
     },
 
