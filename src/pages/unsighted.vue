@@ -228,7 +228,7 @@ export default {
 
       await this.play('Если хотите остановить перечисление действий, кликните по экрану.');
       await this.aFor(res.data.text, this.play);
-            this.play('Перед запросом кликните по экрану.');
+            this.play('Перед запросом и после него кликните по экрану.');
             this.stopListening();
     }
   }
