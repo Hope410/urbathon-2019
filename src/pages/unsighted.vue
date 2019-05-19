@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page ref="page" @click="say">
         <div class="q-pa-md row justify-center">
-          <div ref="chat" style="width: 100%; max-width: 400px">
+          <div class="chat" ref="chat" style="width: 100%; max-width: 400px">
             <q-chat-message
               v-for="ch in chatHistory"
               :key="ch.id"
@@ -12,10 +12,19 @@
             />
           </div>
         </div>
+        <h4 align="center">{{listening ? 'Слушаю...' : ''}}</h4>
       </q-page>
     </q-page-container>
   </q-layout>
 </template>
+
+<style scoped>
+  .chat {
+    overflow: scroll;
+    height: 480px;
+  }
+</style>
+
 
 <script>
 import getUserMedia from 'get-user-media-promise'
@@ -46,9 +55,9 @@ export default {
           fn: async () => {
             console.log(ar);
 
-            const ar = this.curPath.slice(this.offset, 3);
-            if(ar){
-              await this.aFor(this.curPath.slice(this.offset, 3), this.play, 0);
+            const ar = this.curPath.slice(this.offset, 3 + this.offset);
+            if(ar.length){
+              await this.aFor(this.curPath.slice(this.offset, 3 + this.offset), this.play, 0);
               this.offset += 3;
             }else{
               await this.play('Действий нет');
@@ -59,9 +68,9 @@ export default {
           reg: /предыдущие 3 действия/gm,
           fn: async () => {
             this.offset -= 3;
-            const ar = this.curPath.slice(this.offset, 3);
-            if(ar){
-              await this.aFor(this.curPath.slice(this.offset, 3), this.play, 0);
+            const ar = this.curPath.slice(this.offset, 3 + this.offset);
+            if(ar.length){
+              await this.aFor(this.curPath.slice(this.offset, 3 + this.offset), this.play, 0);
             }else{
               await this.play('Действий нет');
             }
@@ -103,6 +112,8 @@ export default {
       console.log(position);
       this.setLocation(position.coords.latitude, position.coords.longitude);
     });
+
+    this.$refs.chat.scrollTop = 9999;
   },
 
   watch: {
@@ -139,7 +150,7 @@ export default {
         this.makePathQ = true;
         this.qAddr = val;
       }
-      this.say();
+      //this.say();
     }
   },
 
@@ -217,19 +228,24 @@ export default {
     },
 
     async getPath(pointTo){
-      pointTo = 'Россия, Республика Татарстан, город Казань, ' + pointTo;
+      try{
+        pointTo = 'Россия, Республика Татарстан, город Казань, ' + pointTo;
 
-      const res = await this.$axios.get(
-        `https://spatialdata.work/api/geo?start=${this.latlng}&finish=${pointTo}`);
+        const res = await this.$axios.get(
+          `https://spatialdata.work/api/geo?start=${this.latlng}&finish=${pointTo}`);
 
-      let coordinates = [];
+        let coordinates = [];
 
-      this.curPath = res.data.text;
+        this.curPath = res.data.text;
 
-      await this.play('Если хотите остановить перечисление действий, кликните по экрану.');
-      await this.aFor(res.data.text, this.play);
-            this.play('Перед запросом и после него кликните по экрану.');
-            this.stopListening();
+        await this.play('Если хотите остановить перечисление действий, кликните по экрану.');
+        await this.aFor(res.data.text, this.play);
+              this.play('Перед запросом и после него кликните по экрану.');
+              this.stopListening();
+
+      }catch(e){
+        console.log(e);
+      }
     }
   }
 }
