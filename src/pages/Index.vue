@@ -14,14 +14,10 @@
 
           <div class="row" style="height: 57vh;">
             <q-btn class="frac col" color="primary" no-caps @click="start(true)">
-              <h3>
-                Я зрячий
-              </h3>
+              <q-icon left size="5em" name="visibility" />
             </q-btn>
             <q-btn class="frac col" color="primary" no-caps @click="start(false)">
-              <h3>
-                Я незрячий
-              </h3>
+              <q-icon left size="5em" name="hearing" />
             </q-btn>
           </div>
         </div>
@@ -41,6 +37,8 @@
 </style>
 
 <script>
+import { Howl, Howler } from 'howler';
+
 export default {
   name: 'PageIndex',
 
@@ -52,6 +50,22 @@ export default {
   methods: {
     start(sighted){
       this.$router.push(`/${!sighted ? 'un' : ''}sighted`)
+
+      if(!sighted){
+        this.play('Добро пожаловать в приложение! Куда Вы хотите направиться?');
+      }
+    },
+
+    play(text){
+      return new Promise((resolve, reject) => {
+        let sound = new Howl({
+          src: `http://localhost:3000/synthesize.ogg?text=${encodeURI(text)}`,
+          volume: 0.5,
+          onend: resolve
+        });
+
+        sound.play();
+      })
     },
   }
 }

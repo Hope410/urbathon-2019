@@ -6,7 +6,8 @@ module.exports = function (ctx) {
     // --> boot files are part of "main.js"
     boot: [
       'axios',
-      'speech'
+      'speech',
+      'leaflet'
     ],
 
     css: [
@@ -43,7 +44,8 @@ module.exports = function (ctx) {
         'QCard',
         'QCardSection',
         'QCardActions',
-        'QSeparator'
+        'QSeparator',
+        'QExpansionItem'
       ],
 
       directives: [
@@ -52,7 +54,8 @@ module.exports = function (ctx) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Cookies'
       ]
 
       // iconSet: 'ionicons-v4'
