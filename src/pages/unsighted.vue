@@ -151,7 +151,7 @@ export default {
     play(text){
       return new Promise((resolve, reject) => {
         let sound = new Howl({
-          src: `http://localhost:3000/synthesize.ogg?text=${encodeURI(text)}`,
+          src: `http://spatialdata.work/api/synthesize.ogg?text=${encodeURI(text)}`,
           volume: 0.5,
           onend: resolve
         });
@@ -174,7 +174,7 @@ export default {
           const data = new FormData();
 
           data.append('audio', e.data);
-          const res = await this.$axios.post('http://localhost:3000/recognize', data);
+          const res = await this.$axios.post('http://spatialdata.work/api/recognize', data);
 
           this.recognized = res.data.result;
         }
@@ -200,7 +200,7 @@ export default {
       pointTo = 'Россия, Республика Татарстан, город Казань, ' + pointTo;
 
       const res = await this.$axios.get(
-        `http://localhost:3000/geo?start=${this.latlng}&finish=${pointTo}`);
+        `http://spatialdata.work/api/geo?start=${this.latlng}&finish=${pointTo}`);
 
       let coordinates = [];
 
